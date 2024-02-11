@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Ashmita</title>
+    <link rel="icon" type="image/x-icon" href="e28e1e0a5947d33352d5c9c0b4ec79cd_t.jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+
+<body>
+    <div class="wrapper">
+        <i class="fa-solid fa-heart" style="color: #ff0040;"></i>
+        <h2 class="question">
+            Love quotes
+        </h2>
+        <p class="quote" style="width: 90%; margin-top: 20px; margin-bottom: 20px;"></p>
+        <div class="btn-group">
+            <button class="regen-btn" style="margin-left: 0px;">Generate</button>
+            
+        </div>
+    </div>
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+      </script>
+      <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+  
+        const loveletter = document.querySelector(".quote");
+        const generateBtn = document.querySelector(".regen-btn");
+
+
+        const genAI = new GoogleGenerativeAI("AIzaSyBENRIfYU3KZK8MzGTBTEy-0Eegjv4wqPk");
+
+        async function run() {
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+        const prompt = "Give me a funny, positive quote about love and romance. ";
+
+        try {
+                const result = await model.generateContent(prompt);
+                const response = result.response;
+                const text = response.text();
+                console.log(text)
+                loveletter.innerHTML = text
+            } catch (error) {
+                console.error("Error generating content:", error.message);
+            }
+        }
+
+        generateBtn.addEventListener("click",() => {
+        console.log("generating!");
+        run();
+                })
+                // ...
+      </script>
+</body>
+</html>
